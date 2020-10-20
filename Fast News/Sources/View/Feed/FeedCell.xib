@@ -133,7 +133,7 @@
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mx0-WY-ylC" userLabel="SeparatorView">
                         <rect key="frame" x="0.0" y="256" width="320" height="4"/>
-                        <color key="backgroundColor" red="0.93740475177764893" green="0.93686187267303467" blue="0.95686608552932739" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="4" id="i3h-70-zF2"/>
                         </constraints>
