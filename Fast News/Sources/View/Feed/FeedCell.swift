@@ -12,6 +12,7 @@ import SDWebImage
 class FeedCell: UITableViewCell {
     
     //MARK: - Properties
+    var urlToShare:URL?
     
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var createdAtLabel: UILabel!
@@ -29,6 +30,7 @@ class FeedCell: UITableViewCell {
         titleLabel.text = hotNewsViewModel.title
         commentsLabel.text = hotNewsViewModel.comments
         scoreLabel.text = hotNewsViewModel.score
+        urlToShare = URL(string: hotNewsViewModel.url)
     }
     
     func setup(viewModel: TypeProtocol) {
@@ -39,5 +41,11 @@ class FeedCell: UITableViewCell {
         titleLabel.text = hotNewsViewModel.title
         commentsLabel.text = hotNewsViewModel.comments
         scoreLabel.text = hotNewsViewModel.score
+        urlToShare = URL(string: hotNewsViewModel.url)
+    }
+    
+    @IBAction func didTouchShare(_ sender: Any) {
+        let activityVC = UIActivityViewController(activityItems: [urlToShare as Any], applicationActivities: nil)
+        UIApplication.shared.keyWindow?.rootViewController?.present(activityVC, animated: true, completion: nil)
     }
 }
