@@ -65,4 +65,8 @@ extension FeedDetailsViewController: FeedViewDelegate {
             UIApplication.shared.open(url)
         }
     }
+    
+    func didReachEndOfPage() {
+        // load more comments
+    }
 }

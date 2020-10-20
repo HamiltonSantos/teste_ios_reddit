@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 @IBDesignable
 class FeedCell: UITableViewCell {
@@ -24,7 +25,7 @@ class FeedCell: UITableViewCell {
     func setup(hotNewsViewModel: HotNewsViewModel) {
         authorLabel.text = hotNewsViewModel.author
         createdAtLabel.text = hotNewsViewModel.createdAt
-        thumbnailImageView.image = hotNewsViewModel.image
+        thumbnailImageView.sd_setImage(with: URL(string: hotNewsViewModel.imageURL))
         titleLabel.text = hotNewsViewModel.title
         commentsLabel.text = hotNewsViewModel.comments
         scoreLabel.text = hotNewsViewModel.score
@@ -34,7 +35,7 @@ class FeedCell: UITableViewCell {
         guard let hotNewsViewModel = viewModel as? HotNewsViewModel else { return }
         authorLabel.text = hotNewsViewModel.author
         createdAtLabel.text = hotNewsViewModel.createdAt
-        thumbnailImageView.image = hotNewsViewModel.image
+        thumbnailImageView.sd_setImage(with: URL(string: hotNewsViewModel.imageURL))
         titleLabel.text = hotNewsViewModel.title
         commentsLabel.text = hotNewsViewModel.comments
         scoreLabel.text = hotNewsViewModel.score

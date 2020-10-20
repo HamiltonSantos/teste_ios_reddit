@@ -39,16 +39,7 @@ class FeedViewController: UIViewController {
         
         navigationItem.title = "Fast News"
         navigationController?.navigationBar.prefersLargeTitles = true
-        
-        HotNewsProvider.shared.hotNews { (completion) in
-            do {
-                let hotNews = try completion()
-                
-                self.hotNews = hotNews
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
+        self.getHotNews()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -57,10 +48,27 @@ class FeedViewController: UIViewController {
         
         detailViewController.hotNewsViewModel = hotNewsViewModel
     }
+    
+    func getHotNews() {
+        HotNewsProvider.shared.hotNews { (completion) in
+            do {
+                let hotNews = try completion()
+                
+                self.hotNews.append(contentsOf: hotNews)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
 }
 
 extension FeedViewController: FeedViewDelegate {
     func didTouch(cell: FeedCell, indexPath: IndexPath) {
         self.performSegue(withIdentifier: kToDetails, sender: self.mainView.viewModels[indexPath.row])
+    }
+    
+    func didReachEndOfPage() {
+        self.getHotNews()
     }
 }

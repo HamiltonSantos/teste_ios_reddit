@@ -19,7 +19,7 @@ struct HotNewsViewModel {
     var comments: String
     var score: String
     var url: String
-    var image: UIImage
+    var imageURL: String
     
     init(hotNews: HotNews) {
         id = hotNews.id ?? ""
@@ -29,13 +29,7 @@ struct HotNewsViewModel {
         comments = hotNews.numComments?.toString ?? ""
         score = hotNews.score?.toString ?? ""
         url = hotNews.url ?? ""
-        image = UIImage()
-        
-        // preview url
-        let previewUrl = hotNews.preview?.images?.first?.source?.url?.htmlDecoded ?? ""
-        guard let url = URL(string: previewUrl) else { return }
-        guard let data = try? Data(contentsOf: url) else { return }
-        image = UIImage(data: data) ?? UIImage()
+        imageURL = hotNews.preview?.images?.first?.source?.url?.htmlDecoded ?? ""
     }
 }
 

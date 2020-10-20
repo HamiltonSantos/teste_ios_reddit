@@ -25,7 +25,7 @@ class HotNewsProvider {
     private let kLimitKey = "limit"
     private let kLimitValue = 5
     private let kAfterKey = "after"
-    private let kAfterValue = ""
+    private var kAfterValue = ""
     
     //MARK: - Singleton
     
@@ -57,7 +57,7 @@ class HotNewsProvider {
                     }
                     
                     var hotNewsArray: [HotNews] = [HotNews]()
-                    
+                    self.kAfterValue = hotNewsDict["data"]?["after"] as? String ?? ""
                     for hotNews in dictArray {
                         let data = hotNews["data"]
                         
