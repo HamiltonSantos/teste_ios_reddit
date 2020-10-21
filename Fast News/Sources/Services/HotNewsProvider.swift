@@ -130,4 +130,8 @@ class HotNewsProvider {
             completion { throw error }
         }
     }
+    
+    func resetPagination() {
+        self.kAfterValue = ""
+    }
 }

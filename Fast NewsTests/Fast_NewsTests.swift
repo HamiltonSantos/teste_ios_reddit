@@ -10,25 +10,56 @@ import XCTest
 @testable import Fast_News
 
 class Fast_NewsTests: XCTestCase {
-
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        super.setUp()
     }
-
+    
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+        HotNewsProvider.shared.resetPagination()
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func testHotNewsFirstPage() {
+        let promise =  expectation(description: "first page loaded successfully")
+        HotNewsProvider.shared.hotNews { (completion) in
+            do {
+                let hotNews = try completion()
+                if hotNews.count > 0 {
+                    promise.fulfill()
+                } else {
+                    XCTFail("first page empty")
+                }
+            } catch {
+                XCTFail("first page not loaded")
+            }
         }
+        
+        wait(for: [promise], timeout: 5)
     }
-
+    
+    func testHotNewsComentsFirstPage() {
+        let promise = expectation(description: "first comments page loaded successfully")
+        HotNewsProvider.shared.hotNews { (completion) in
+            do {
+                guard let firstNewsId = try completion()[0].id else {
+                    XCTFail("first news not loaded")
+                    return
+                }
+                HotNewsProvider.shared.hotNewsComments(id: firstNewsId) { (completion) in
+                    do {
+                        let _ = try completion()
+                        promise.fulfill()
+                    } catch {
+                        XCTFail("comments not loaded")
+                    }
+                }
+            } catch {
+                XCTFail("first news not loaded")
+            }
+        }
+        
+        wait(for: [promise], timeout: 5)
+    }
+    
 }
