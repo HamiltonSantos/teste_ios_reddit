@@ -103,6 +103,9 @@
                     <constraint firstItem="BAU-le-uKY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="xuQ-pW-wOV"/>
                 </constraints>
             </tableViewCellContentView>
+            <accessibility key="accessibilityConfiguration" identifier="CommentCell">
+                <bool key="isElement" value="YES"/>
+            </accessibility>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="authorLabel" destination="6ez-hW-XXJ" id="Jjv-fX-Mt8"/>
